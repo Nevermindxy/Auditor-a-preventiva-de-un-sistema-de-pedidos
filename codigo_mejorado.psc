@@ -1,15 +1,18 @@
-Algoritmo RegistroPedidos
+Algoritmo RegistroPedidosMejorado
 	Definir producto Como Caracter;
 	Definir cantidad Como Entero;
 	Definir precio Como Real;
+	Definir subtotal Como Real;
 	Definir total Como Real;
 	Definir descuento Como Real;
 	Definir eleccion Como Entero;
 	
-	Escribir "REGISTRO DE PEDIDOS ";
+	Escribir " REGISTRO DE PEDIDOS ";
+	
 	Escribir "Nombre del producto:";
 	Leer producto;
 	
+
 	cantidad <- 0;
 	Mientras cantidad <= 0 Hacer
 		Escribir "Cantidad solicitada:";
@@ -19,7 +22,7 @@ Algoritmo RegistroPedidos
 		FinSi;
 	FinMientras;
 	
-	// Validación del precio añadida en este commit
+
 	precio <- 0;
 	Mientras precio <= 0 Hacer
 		Escribir "Precio unitario:";
@@ -29,23 +32,42 @@ Algoritmo RegistroPedidos
 		FinSi;
 	FinMientras;
 	
-	Escribir "Porcentaje de descuento:";
-	Leer descuento;
+	// 3. ValidaciÃ³n del descuento (aÃ±adida en este commit)
+	descuento <- -1;
+	Mientras descuento < 0 O descuento > 100 Hacer
+		Escribir "Porcentaje de descuento (0 - 100):";
+		Leer descuento;
+		Si descuento < 0 O descuento > 100 Entonces
+			Escribir "Error: El descuento debe estar entre 0 y 100.";
+		FinSi;
+	FinMientras;
 	
-	total <- cantidad * precio;
-	total <- total - (total * descuento / 100);
+	subtotal <- cantidad * precio;
+	total <- subtotal - (subtotal * descuento / 100);
 	
+	Escribir "";
+	Escribir "--- DETALLES DEL PEDIDO ---";
 	Escribir "Producto: ", producto;
 	Escribir "Cantidad: ", cantidad;
+	Escribir "Precio Unitario: ", precio;
+	Escribir "Descuento aplicado: ", descuento, "%";
 	Escribir "Total a pagar: ", total;
 	
-	Escribir "¿Desea confirmar el pedido?";
-	Escribir "1. Sí";
-	Escribir "2. No";
-	Leer eleccion;
+
+	eleccion <- 0;
+	Mientras eleccion <> 1 Y eleccion <> 2 Hacer
+		Escribir "";
+		Escribir "Â¿Desea confirmar el pedido?";
+		Escribir "1. SÃ­";
+		Escribir "2. No";
+		Leer eleccion;
+		Si eleccion <> 1 Y eleccion <> 2 Entonces
+			Escribir "Error: OpciÃ³n invÃ¡lida. Ingrese 1 o 2.";
+		FinSi;
+	FinMientras;
 	
 	Si eleccion = 1 Entonces
-		Escribir "Pedido confirmado.";
+		Escribir "Pedido confirmado con Ã©xito.";
 	SiNo
 		Escribir "Pedido cancelado.";
 	FinSi;
